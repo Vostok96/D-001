@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Para María Elena | Una Dedicatoria Eterna • RyM</title>
+  <meta name="description" content="Para ti, amor de mi vida, que siempre estás en mis pensamientos. Una dedicatoria de amor eterno de Erwin Manuel Hernández García para María Elena." />
+  <meta name="theme-color" content="#fff1f5" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Metadatos OpenGraph para previsualizaciones elegantes -->
+  <meta property="og:title" content="Para María Elena | Dedicatoria de Amor de Erwin" />
+  <meta property="og:description" content="Para ti, amor de mi vida, que siempre estás en mis pensamientos y eres parte de mi camino..." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/images/photo-01.jpg" />
+
+  <!-- Tipografías de Alta Joyería RyM -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#fff1f5',
+            rose: {
+              DEFAULT: '#e67696',
+              soft: '#fbdde6',
+              mist: '#fff0f4',
+              deep: '#bd4b6d',
+            },
+            berry: '#77394c',
+            gold: {
+              light: '#f5d485',
+              DEFAULT: '#b98a3b',
+              dark: '#8c631e',
+            },
+            ink: '#2c2c2c',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-paper text-ink antialiased selection:bg-rose-soft selection:text-berry">
+
+  <!-- Lienzo interactivo de pétalos y destellos dorados -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- PANTALLA DE APERTURA: SOBRE DE LUJO CON LACRE DORADO -->
+  <div id="envelope-screen">
+    <div class="text-center mb-8 px-4 max-w-md animate-fade-in">
+      <span class="inline-block px-3.5 py-1 text-xs tracking-[0.25em] font-sans font-medium text-berry uppercase bg-white/70 backdrop-blur-sm rounded-full border border-gold/40 shadow-sm mb-3">
+        Joyería RyM • Obsequio Exclusivo
+      </span>
+      <h1 class="font-serif text-3xl sm:text-4xl text-berry font-semibold tracking-wide">
+        Tienes una sorpresa especial
+      </h1>
+      <p class="font-sans text-xs sm:text-sm text-stone-600 mt-2 font-light">
+        Un detalle eterno preparado con todo el amor de Erwin para ti.
+      </p>
+    </div>
+
+    <!-- Sobre Interactivo 3D -->
+    <div class="envelope-wrapper" id="envelope-trigger" role="button" aria-label="Abrir sobre de regalo" tabindex="0">
+      <div class="envelope-back"></div>
+      <div class="envelope-flap-left"></div>
+      <div class="envelope-flap-right"></div>
+      <div class="envelope-flap-bottom"></div>
+      <div class="envelope-flap-top"></div>
+
+      <!-- Sello de Lacre de Oro -->
+      <div class="wax-seal" id="wax-seal-btn">
+        <svg class="w-6 h-6 text-amber-100 drop-shadow" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="text-[9px] font-serif font-bold text-amber-100 tracking-widest mt-0.5">RyM</span>
+      </div>
+    </div>
+
+    <!-- Indicador de acción -->
+    <div class="mt-8 text-center animate-bounce">
+      <span class="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-berry bg-white/80 backdrop-blur px-5 py-2.5 rounded-full border border-rose-deep/30 shadow-md">
+        <span>Toca el sello para abrir</span>
+        <svg class="w-4 h-4 text-rose-deep" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+        </svg>
+      </span>
+    </div>
+  </div>
+
+  <!-- AUDIO OFICIAL -->
+  <audio id="romantic-audio" preload="auto" loop>
+    <source src="assets/audio/es-por-ti.mp3" type="audio/mpeg" />
+    <source src="assets/audio/es-por-ti.webm" type="audio/webm" />
+  </audio>
+
+  <!-- REPRODUCTOR FLOTANTE DE MÚSICA -->
+  <aside class="music-player-pill" id="music-pill">
+    <div class="vinyl-disc" id="vinyl-disc">
+      <div class="vinyl-center"></div>
+    </div>
+    <div class="flex flex-col text-left pr-1">
+      <span class="text-[11px] font-serif font-semibold text-berry leading-tight truncate max-w-[140px] sm:max-w-[180px]">
+        Es por ti
+      </span>
+      <span class="text-[9px] font-sans text-stone-500 uppercase tracking-wider">
+        Juanes • Nuestra canción
+      </span>
+    </div>
+    <button id="toggle-audio-btn" class="p-2 text-berry hover:text-rose-deep transition-colors focus:outline-none" aria-label="Pausar o reproducir música">
+      <svg id="play-icon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg id="pause-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL DE LA DEDICATORIA -->
+  <main class="relative z-10 w-full overflow-hidden">
+
+    <!-- HERO: PRESENTACIÓN ROMÁNTICA -->
+    <header class="pt-20 pb-12 sm:pt-28 sm:pb-16 px-4 text-center max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 border border-gold/40 shadow-sm mb-6 backdrop-blur">
+        <svg class="w-3.5 h-3.5 text-gold" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        <span class="text-xs font-sans tracking-[0.2em] uppercase font-medium text-berry">
+          Dedicatoria de Amor Eterno
+        </span>
+        <svg class="w-3.5 h-3.5 text-gold" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+      </div>
+
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl text-berry font-bold tracking-tight mb-4 leading-tight">
+        Para ti, <span class="gold-shimmer italic font-normal">María Elena</span>
+      </h1>
+      <p class="font-serif text-xl sm:text-2xl text-rose-deep italic">
+        El amor de mi vida, mi camino y mi mayor bendición
+      </p>
+
+      <div class="flex items-center justify-center gap-3 my-6">
+        <div class="h-[1px] w-16 bg-gradient-to-r from-transparent to-gold"></div>
+        <svg class="w-5 h-5 text-rose-deep heart-beat" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+        </svg>
+        <div class="h-[1px] w-16 bg-gradient-to-l from-transparent to-gold"></div>
+      </div>
+    </header>
+
+    <!-- CARTA DE DEDICATORIA CENTRAL -->
+    <section class="max-w-3xl mx-auto px-4 mb-20">
+      <div class="relative bg-white/95 rounded-2xl p-8 sm:p-14 shadow-2xl border border-rose-soft/80 backdrop-blur-md">
+        <!-- Decoración dorada en esquinas -->
+        <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-gold/50 rounded-tl-lg"></div>
+        <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-gold/50 rounded-tr-lg"></div>
+        <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-gold/50 rounded-bl-lg"></div>
+        <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-gold/50 rounded-br-lg"></div>
+
+        <div class="text-center">
+          <span class="font-serif italic text-rose-deep text-lg block mb-4">
+            «Es por ti que late mi corazón cada día»
+          </span>
+
+          <blockquote class="font-serif text-2xl sm:text-3xl sm:leading-relaxed text-stone-800 leading-relaxed font-normal my-6">
+            “Para ti, <span class="font-semibold text-berry">amor de mi vida</span>, que siempre estás en mis pensamientos y eres parte de mi camino que voy haciendo, y te amaré siempre hasta que Dios me lo permita.”
+          </blockquote>
+
+          <div class="mt-8 pt-6 border-t border-rose-soft flex flex-col items-center">
+            <span class="text-xs uppercase tracking-widest font-sans text-stone-400 mb-1">
+              Con todo mi amor eterno,
+            </span>
+            <span class="font-serif text-xl sm:text-2xl font-bold text-berry tracking-wide">
+              Erwin Manuel Hernández García
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: 10 MOMENTOS INOLVIDABLES (DESTACADOS) -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24">
+      <div class="text-center mb-12">
+        <span class="text-xs font-sans tracking-[0.25em] uppercase text-rose-deep font-semibold">
+          Nuestra Historia en Imágenes
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-berry font-bold mt-2">
+          Momentos Inolvidables
+        </h2>
+        <p class="font-sans text-xs sm:text-sm text-stone-600 mt-2 max-w-md mx-auto">
+          Cada fotografía atesora una sonrisa, una aventura y la certeza de que caminar a tu lado es lo más hermoso.
+        </p>
+      </div>
+
+      <!-- Cuadrícula Polaroid de las 10 fotos principales -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+
+        <!-- Foto 1 -->
+        <article class="polaroid-card group" onclick="openLightbox(0)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-01.jpg" alt="Momento inolvidable con María Elena 1" loading="eager" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Tu sonrisa que ilumina mis días
+          </p>
+        </article>
+
+        <!-- Foto 2 -->
+        <article class="polaroid-card group" onclick="openLightbox(1)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-02.jpg" alt="Momento inolvidable con María Elena 2" loading="eager" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Caminando juntos siempre
+          </p>
+        </article>
+
+        <!-- Foto 3 -->
+        <article class="polaroid-card group" onclick="openLightbox(2)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-03.jpg" alt="Momento inolvidable con María Elena 3" loading="eager" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Mi lugar favorito eres tú
+          </p>
+        </article>
+
+        <!-- Foto 4 -->
+        <article class="polaroid-card group" onclick="openLightbox(3)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-04.jpg" alt="Momento inolvidable con María Elena 4" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Complicidad y amor puro
+          </p>
+        </article>
+
+        <!-- Foto 5 -->
+        <article class="polaroid-card group" onclick="openLightbox(4)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-05.jpg" alt="Momento inolvidable con María Elena 5" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Miradas que lo dicen todo
+          </p>
+        </article>
+
+        <!-- Foto 6 -->
+        <article class="polaroid-card group" onclick="openLightbox(5)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-06.jpg" alt="Momento inolvidable con María Elena 6" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Aventuras compartidas
+          </p>
+        </article>
+
+        <!-- Foto 7 -->
+        <article class="polaroid-card group" onclick="openLightbox(6)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-07.jpg" alt="Momento inolvidable con María Elena 7" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Siempre en mis pensamientos
+          </p>
+        </article>
+
+        <!-- Foto 8 -->
+        <article class="polaroid-card group" onclick="openLightbox(7)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-08.jpg" alt="Momento inolvidable con María Elena 8" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            La dulzura de tu compañía
+          </p>
+        </article>
+
+        <!-- Foto 9 -->
+        <article class="polaroid-card group" onclick="openLightbox(8)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-09.jpg" alt="Momento inolvidable con María Elena 9" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Construyendo nuestro camino
+          </p>
+        </article>
+
+        <!-- Foto 10 (Centrada si queda sola en la fila) -->
+        <article class="polaroid-card group sm:col-span-2 lg:col-span-1 lg:col-start-2" onclick="openLightbox(9)">
+          <div class="polaroid-img-wrapper">
+            <img src="assets/images/photo-10.jpg" alt="Momento inolvidable con María Elena 10" loading="lazy" />
+          </div>
+          <p class="font-serif italic text-center text-stone-700 text-lg mt-3 group-hover:text-rose-deep transition-colors">
+            Hasta que Dios me lo permita
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- FRASE INTERCALADA DE LA CANCIÓN -->
+    <section class="py-12 bg-gradient-to-r from-rose-mist via-white to-rose-mist border-y border-rose-soft/80 text-center px-4 mb-20">
+      <div class="max-w-2xl mx-auto">
+        <svg class="w-8 h-8 text-rose-deep/40 mx-auto mb-3" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+        <p class="font-serif text-2xl sm:text-3xl text-berry italic">
+          “Es por ti que veo ríos donde solo había desiertos... Es por ti que soy un hombre sincero...”
+        </p>
+        <span class="text-xs uppercase tracking-widest text-gold-dark font-sans font-medium mt-3 block">
+          — Es por ti • Juanes
+        </span>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: COLECCIÓN COMPLETA DE RECUERDOS (FOTOS 11 A 30) -->
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 mb-24">
+      <div class="text-center mb-10">
+        <span class="text-xs font-sans tracking-[0.25em] uppercase text-rose-deep font-semibold">
+          Colección Completa
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-berry font-bold mt-2">
+          Cada Instante Cuenta Nuestra Historia
+        </h2>
+        <p class="font-sans text-xs sm:text-sm text-stone-600 mt-2">
+          Haz clic en cualquier imagen para verla en pantalla completa.
+        </p>
+      </div>
+
+      <!-- Cuadrícula compacta de las 20 fotos restantes -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4" id="photo-grid">
+        <!-- Renderizado dinámico de las fotos 11 a 30 en script.js o estático -->
+        <!-- Foto 11 -->
+        <div class="grid-photo-card" onclick="openLightbox(10)">
+          <img src="assets/images/photo-11.jpg" alt="Recuerdo 11" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 12 -->
+        <div class="grid-photo-card" onclick="openLightbox(11)">
+          <img src="assets/images/photo-12.jpg" alt="Recuerdo 12" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 13 -->
+        <div class="grid-photo-card" onclick="openLightbox(12)">
+          <img src="assets/images/photo-13.jpg" alt="Recuerdo 13" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 14 -->
+        <div class="grid-photo-card" onclick="openLightbox(13)">
+          <img src="assets/images/photo-14.jpg" alt="Recuerdo 14" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 15 -->
+        <div class="grid-photo-card" onclick="openLightbox(14)">
+          <img src="assets/images/photo-15.jpg" alt="Recuerdo 15" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 16 -->
+        <div class="grid-photo-card" onclick="openLightbox(15)">
+          <img src="assets/images/photo-16.jpg" alt="Recuerdo 16" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 17 -->
+        <div class="grid-photo-card" onclick="openLightbox(16)">
+          <img src="assets/images/photo-17.jpg" alt="Recuerdo 17" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 18 -->
+        <div class="grid-photo-card" onclick="openLightbox(17)">
+          <img src="assets/images/photo-18.jpg" alt="Recuerdo 18" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 19 -->
+        <div class="grid-photo-card" onclick="openLightbox(18)">
+          <img src="assets/images/photo-19.jpg" alt="Recuerdo 19" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 20 -->
+        <div class="grid-photo-card" onclick="openLightbox(19)">
+          <img src="assets/images/photo-20.jpg" alt="Recuerdo 20" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 21 -->
+        <div class="grid-photo-card" onclick="openLightbox(20)">
+          <img src="assets/images/photo-21.jpg" alt="Recuerdo 21" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 22 -->
+        <div class="grid-photo-card" onclick="openLightbox(21)">
+          <img src="assets/images/photo-22.jpg" alt="Recuerdo 22" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 23 -->
+        <div class="grid-photo-card" onclick="openLightbox(22)">
+          <img src="assets/images/photo-23.jpg" alt="Recuerdo 23" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 24 -->
+        <div class="grid-photo-card" onclick="openLightbox(23)">
+          <img src="assets/images/photo-24.jpg" alt="Recuerdo 24" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 25 -->
+        <div class="grid-photo-card" onclick="openLightbox(24)">
+          <img src="assets/images/photo-25.jpg" alt="Recuerdo 25" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 26 -->
+        <div class="grid-photo-card" onclick="openLightbox(25)">
+          <img src="assets/images/photo-26.jpg" alt="Recuerdo 26" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 27 -->
+        <div class="grid-photo-card" onclick="openLightbox(26)">
+          <img src="assets/images/photo-27.jpg" alt="Recuerdo 27" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 28 -->
+        <div class="grid-photo-card" onclick="openLightbox(27)">
+          <img src="assets/images/photo-28.jpg" alt="Recuerdo 28" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 29 -->
+        <div class="grid-photo-card" onclick="openLightbox(28)">
+          <img src="assets/images/photo-29.jpg" alt="Recuerdo 29" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+        <!-- Foto 30 -->
+        <div class="grid-photo-card" onclick="openLightbox(29)">
+          <img src="assets/images/photo-30.jpg" alt="Recuerdo 30" loading="lazy" />
+          <div class="grid-photo-overlay"><span class="text-[11px] font-serif text-white italic">Ver recuerdo</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETALLE INTERACTIVO: LATIDOS DE AMOR -->
+    <section class="max-w-xl mx-auto px-4 text-center mb-20">
+      <div class="bg-white/90 p-8 rounded-2xl shadow-xl border border-rose-soft/80 backdrop-blur">
+        <h3 class="font-serif text-2xl text-berry font-bold mb-2">
+          ¿Sientes este amor, María Elena?
+        </h3>
+        <p class="font-sans text-xs sm:text-sm text-stone-600 mb-6">
+          Toca el corazón y envíale un latido especial de regreso a Erwin.
+        </p>
+
+        <button id="send-love-btn" class="love-btn px-8 py-3.5 rounded-full text-white font-sans text-sm font-semibold inline-flex items-center gap-2">
+          <svg class="w-5 h-5 heart-beat" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+          </svg>
+          <span>Enviar un latido de amor</span>
+        </button>
+
+        <div id="love-counter" class="text-xs font-sans text-stone-500 mt-4">
+          Latidos enviados: <span id="hearts-count" class="font-semibold text-rose-deep">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA CON IDENTIDAD RYM JOYERÍA -->
+    <footer class="pt-12 pb-16 border-t border-rose-soft/80 bg-white/60 text-center px-4">
+      <div class="max-w-md mx-auto">
+        <div class="flex items-center justify-center gap-2 mb-3">
+          <span class="font-serif text-2xl font-bold text-berry tracking-wider">RyM</span>
+          <span class="text-gold text-lg">•</span>
+          <span class="font-sans text-xs tracking-widest text-stone-500 uppercase">Joyería</span>
+        </div>
+        <p class="font-sans text-xs text-stone-500 leading-relaxed">
+          Calidad en cada detalle. Una dedicatoria eterna creada para acompañar una joya inolvidable.
+        </p>
+        <div class="mt-4 flex items-center justify-center gap-4 text-xs font-sans">
+          <a href="https://joyeria.rymgroup.org/" target="_blank" rel="noopener noreferrer" class="text-rose-deep hover:text-berry underline transition-colors">
+            Visitar Tienda Oficial RyM
+          </a>
+          <span class="text-stone-300">|</span>
+          <span class="text-stone-400">SKU: D-001</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL PARA TODAS LAS 30 FOTOS -->
+  <div id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Visualizador de fotos">
+    <!-- Botón Cerrar -->
+    <button class="absolute top-5 right-5 text-white/80 hover:text-white p-2 text-3xl focus:outline-none z-50" onclick="closeLightbox()" aria-label="Cerrar vista completa">
+      &times;
+    </button>
+
+    <!-- Botón Anterior -->
+    <button class="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/40 hover:bg-black/70 p-3 rounded-full transition-all focus:outline-none z-50" onclick="prevPhoto()" aria-label="Foto anterior">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Botón Siguiente -->
+    <button class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white bg-black/40 hover:bg-black/70 p-3 rounded-full transition-all focus:outline-none z-50" onclick="nextPhoto()" aria-label="Siguiente foto">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <!-- Imagen y pie de foto -->
+    <div class="lightbox-content">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Recuerdo en detalle" />
+      <div class="mt-4 text-center">
+        <p id="lightbox-caption" class="font-serif italic text-rose-soft text-lg"></p>
+        <span id="lightbox-index" class="text-xs font-sans text-stone-400 mt-1 block"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
