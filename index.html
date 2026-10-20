@@ -4,6 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Para María Elena | Una Dedicatoria Eterna • RyM</title>
+  
+  <!-- Supresión inmediata de la insignia inyectada de Netlify -->
+  <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id^="nl-"], iframe[title*="Netlify" i] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      top: -99999px !important;
+      left: -99999px !important;
+    }
+  </style>
+  <script>
+    (function() {
+      // Bloquear e interceptar cualquier creación del iframe de Netlify HUD
+      const origCreate = document.createElement;
+      document.createElement = function(tag, opt) {
+        const el = origCreate.call(document, tag, opt);
+        if (tag && typeof tag === 'string' && tag.toLowerCase() === 'iframe') {
+          const origSet = el.setAttribute;
+          el.setAttribute = function(name, val) {
+            if (name === 'id' && (val === 'nl-badge-frame' || val === 'nl-hud-frame')) {
+              el.style.display = 'none';
+              setTimeout(function() { el.remove(); }, 0);
+            }
+            return origSet.call(el, name, val);
+          };
+        }
+        return el;
+      };
+
+      // Observador de mutaciones para eliminar el iframe si llega a insertarse
+      const obs = new MutationObserver(function(mutations) {
+        for (let i = 0; i < mutations.length; i++) {
+          const nodes = mutations[i].addedNodes;
+          for (let j = 0; j < nodes.length; j++) {
+            const n = nodes[j];
+            if (n.nodeType === 1) {
+              if (n.id === 'nl-badge-frame' || n.id === 'nl-hud-frame' || (n.tagName === 'IFRAME' && n.title && n.title.indexOf('Netlify') !== -1)) {
+                n.remove();
+              }
+              if (n.tagName === 'SCRIPT' && n.src && n.src.indexOf('/hud') !== -1) {
+                n.remove();
+              }
+            }
+          }
+        }
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
   <meta name="description" content="Para ti, amor de mi vida, que siempre estás en mis pensamientos. Una dedicatoria de amor eterno de Erwin Manuel Hernández García para María Elena." />
   <meta name="theme-color" content="#fff1f5" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
